@@ -1,0 +1,17 @@
+{
+	"name": "wikigame",
+	"private": true,
+	"version": "0.0.1",
+	"author": "Sebastian Vollnhals <sebastian@vollnhals.info>",
+	"main": "./wikigame.js",
+	"dependencies": {
+		"express.io": ">= 1.1.11",
+		"mustache": ">= 0.7.2",
+		"colors": ">= 0.6.0",
+		"optimist": ">= 0.4.0",
+		"scrapyard": ">= 0.0.1"
+	},
+	"engines": {
+		"node": ">= 0.8.15"
+	}
+}

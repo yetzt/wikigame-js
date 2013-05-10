@@ -1,0 +1,332 @@
+body {
+	background-color: #000;
+	color: #fff;
+	font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+
+	#main {
+		
+		display: block;
+		position: fixed;
+		left: 0px;
+		top: 0px;
+		right: 0px;
+		bottom: 0px;
+		margin: 0px;
+		padding: 0px;
+		background-color: #000;
+		box-shadow: 0px 0px 200px rgba(255,255,255,0.2) inset;
+		z-index: 1;
+		
+	}
+	
+	.play #login,
+	.play #wait,
+	.play #play {
+		display: none;
+	}
+
+	.play .show-login #login,
+	.play .show-wait #wait,
+	.play .show-play #play {
+		display: block;
+		position: fixed;
+		left: 0px;
+		right: 0px;
+		top: 0px;
+		bottom: 0px;
+	}
+
+		.play #wait {
+		
+			padding: 200px 0px;
+			text-align: center;
+			font-size: 60px;
+			line-height: 80px;
+		
+		}
+
+		.play #preview {
+	
+			text-align: center;
+			font-size: 40px;
+			line-height: 50px;
+	
+		}
+		
+		.play #login {
+			
+			padding: 200px 0px;
+			text-align: center;
+			color: #000;
+			font-size: 60px;
+			
+		}
+	
+		.play #login .add-on {
+			
+			height: 80px;
+			line-height: 80px;
+			font-size: 60px;
+			padding-left: 20px;
+			padding-right: 20px;
+			color: #999;
+			
+		}
+
+		.play #login input {
+			
+			height: 80px;
+			line-height: 80px;
+			font-size: 60px;
+			min-width: 400px;
+			padding-left: 20px;
+			padding-right: 20px;
+			
+		}
+
+		.play #play #destination {
+			
+			display: block;
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			right: 300px;
+			height: 100px;
+			line-height: 100px;
+			text-align: left;
+			padding-left: 20px;
+			font-size: 60px;
+			
+		}
+		
+		.play #play #clock {
+			
+			display: block;
+			position: absolute;
+			right: 0px;
+			top: 0px;
+			width: 300px;
+			height: 100px;
+			line-height: 100px;
+			text-align: center;
+			font-size: 60px;
+			
+		}
+
+		.play #play #article {
+			
+			display: block;
+			position: absolute;
+			right: 0px;
+			left: 0px;
+			top: 101px;
+			bottom: 0px;
+			border-top: 1px solid #333;
+			padding: 50px;
+			overflow: auto;
+			background-color: #fff;
+			color: #333;
+			
+		}
+		
+			.play #play #article .float-right {
+				
+				float: right;
+				margin-left: 20px;
+				
+			}
+			
+			.play #play #article .editsection {
+				display: none;
+			}
+	
+	.stats #player1 {
+		
+		display: block;
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		width: 50%;
+		bottom: 165px;
+		z-index: 1;
+		
+	}
+	
+	.stats #player2 {
+		
+		display: block;
+		position: absolute;
+		right: 0px;
+		top: 0px;
+		width: 50%;
+		bottom: 165px;
+		z-index: 2;
+		
+	}
+	
+		.stats .name {
+		
+			display: block;
+			position: relative;
+			color: #fff;
+			font-size: 60px;
+			width: 100%;
+			height: 100px;
+			line-height: 100px;
+			text-align: center;
+		
+		}
+		
+		.stats .done .name {
+			
+			color: #6f6;
+			
+		}
+	
+		.stats .article {
+		
+			display: block;
+			position: relative;
+			color: #fff;
+			font-size: 40px;
+			width: 100%;
+			height: 60px;
+			line-height: 60px;
+			text-align: center;
+			background-color: rgba(255,255,255,0.05);
+			overflow: hidden;
+		
+		}
+	
+		.stats .history {
+		
+			display: block;
+			position: relative;
+			color: #ccc;
+			font-size: 30px;
+			width: 100%;
+			line-height: 40px;
+			text-align: center;
+			overflow: hidden;
+		
+		}
+		
+			.stats .history .bonus {
+			
+				color: #6f6;
+			
+			}
+
+			.stats .history .malus {
+			
+				color: #f66;
+			
+			}
+
+	.stats #game {
+		
+		display: block;
+		position: absolute;
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+		height: 161px;
+		z-index: 3;
+		
+	}
+	
+		.stats #state {
+	
+			display: block;
+			position: absolute;
+			left: 35%;
+			right: 35%;
+			height: 160px;
+			border: 1px solid #333;
+			border-bottom: 0px;
+			bottom: 0px;
+			text-align: center;
+			line-height: 160px;
+			font-size: 80px;
+			border-top-left-radius: 20px;
+			border-top-right-radius: 20px;
+	
+		}
+		
+		.stats #from {
+	
+			display: block;
+			position: absolute;
+			width: 35%;
+			left: 0px;
+			bottom: 0px;
+			padding: 20px 0px;
+			max-height: 100px;
+			height: 100px;
+			text-align: center;
+			font-size: 40px;
+			line-height: 40px;
+			border-top: 1px solid #333;
+			overflow: hidden;
+			background-color: rgba(0,0,0,0.8);
+	
+		}
+		
+		.stats #to {
+	
+			display: block;
+			position: absolute;
+			width: 35%;
+			right: 0px;
+			bottom: 0px;
+			padding: 20px 0px;
+			max-height: 100px;
+			height: 100px;
+			text-align: center;
+			font-size: 40px;
+			line-height: 40px;
+			border-top: 1px solid #333;
+			overflow: hidden;
+			background-color: rgba(0,0,0,0.8);
+	
+		}
+		
+	#splash {
+		display: none;
+	}
+	
+	.splash #splash {
+		
+		display: block;
+		position: fixed;
+		left: 0px;
+		top: 0px;
+		right: 0px;
+		bottom: 0px;
+		margin: 0px;
+		padding: 100px;
+		background-color: rgba(0,0,0,0.9);
+		color: #fff;
+		font-size: 100px;
+		line-height: 120px;
+		text-align: center;
+		z-index: 2;
+		
+	}
+
+		.splash #splash em {
+	
+			color: #6f6;
+			font-style: normal;
+	
+		}
+			
+		.splash #splash small {
+			
+			font-size: 80px;
+			color: #999;
+			
+		}
