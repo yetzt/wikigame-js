@@ -274,7 +274,7 @@ app.io.route('article', function(req) {
 					}
 
 					if (req.data.lemma.match(/Hitler|Nazi|Nationalsozialismus|Martin Bormann|Philipp Bouhler|Kurt Daluege|Wilhelm Frick|Joseph Goebbels|Hermann Göring|Ernst Hanfstaengl|Rudolf Heß|Heinrich Himmler|Ernst Röhm|Albert Speer|Adolf Eichmann|Josef Mengele/i)) {
-						players[id].stats.bonus -= 1;
+						players[id].stats.bonus -= 5;
 						req.io.emit('malus', '-5 Nazimalus');
 						app.io.room('stats').broadcast('malus', {'player':id,'txt':'-5 Nazimalus'});
 					}
