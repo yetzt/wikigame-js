@@ -221,7 +221,7 @@ app.io.route('article', function(req) {
 	} else if (req.data.lemma.match(/^Diskussion:/)) {
 		req.io.emit("splash", "Keine Debatten");
 	} else if (req.data.lemma.match(/^Spezial:/)) {
-		req.io.emit("splash", "Keine Soezialseiten");
+		req.io.emit("splash", "Keine Spezialseiten");
 	} else if (req.data.slug === state.to.slug) {
 
 		/* we have a winner here! */
