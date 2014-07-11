@@ -461,7 +461,8 @@ var sendplayers = function(evt, data) {
 
 /* scrape wikipedia entry */
 var scrape = function(slug, callback) {
-	scraper.scrape(config.base+slug, 'html', function(err,$){
+	var opts = {url: config.base+slug, type: 'html', encoding: 'utf8'};
+	scraper.scrape(opts, function(err,$){
 		if (err) {
 			console.error('ERR'.red.inverse.bold, 'scrape'.red, err);
 			callbacl(err);
