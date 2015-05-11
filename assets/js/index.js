@@ -1,208 +1,287 @@
-
-io = io.connect();
-
 $(document).ready(function(){
-
-	/* admin */
-	if ($('body.admin').length > 0) {
-		io.emit('admin');
-		$('#round-new').click(function(evt){
-			io.emit('round-new');
-		});
-		$('#round-start').click(function(evt){
-			io.emit('round-start');
-		});
-		$('#reset').click(function(evt){
-			io.emit('reset');
-		});
-		$('#startsplash').click(function(evt){
-			io.emit('startsplash');
-		});
-		io.on('new-round', function(data){
-			$('#from').text(data.from.lemma);
-			$('#to').text(data.to.lemma);
-		});
-		io.on('set-player', function(data){
-			switch (data.player.toString()) {
-				case '1': var e = $('#player1'); break;
-				case '2': var e = $('#player2'); break;
-			}
-			if (data.name !== null) {
-				e.text(data.name);
-			} else {
-				e.html('<em>None (Set)</em>');
-			}
-		});
-		io.on('log', function(data){
-			$('#log').append('<p>'+data+'</p>');
-		});
-	}
-
-	/* stats */
 	
-	if ($('body.stats').length > 0) {
+	var socket = io();
 
-		io.emit('stats-subscribe');
+	// code for play interface
+	if ($("#main.play").length === 1) {
 
-		io.on('stats', function(data) {
-			$('#from').text(((data.from) ? data.from.lemma : ""));
-			$('#to').text(((data.to) ? data.to.lemma : ""));
-			$('#player1 .name').html((data.player1 || "<em>Player 1</em>"));
-			$('#player2 .name').html((data.player2 || "<em>Player 2</em>"));
-			switch (data.game) {
-				case "wait": $('#state').text('READY').css('background-color','#000'); break;
-			}
+		// tell server we are a player
+		socket.on('connect', function(){
+			socket.emit('player', true);
 		});
 
-		io.on('stats-article', function(data){
-			var $p = $("#player"+data.player);
-			var oldarticle = $('.article', $p).text();
-			if (oldarticle !== "") {
-				$('.history', $p).prepend('<p>'+oldarticle+'</p>');
-			}
-			$('.article', $p).text(data.article.lemma);
+		// send player id
+		socket.on('player-getid', function(){
+			socket.emit('player-setid', parseInt($('#main').attr("data-playerid"),10));
+		});
+
+		// request player name
+		socket.on('player-getname', function(){
+			$("#playername-form").submit(function(){
+				$("#main.play").removeClass('name').addClass('spin');
+				socket.emit('player-setname', $('#playername').val());
+				return false;
+			});
+			$("#main.play").removeClass('spin').addClass('name');
+		});
+
+		// game resume
+		socket.on("game-resume", function(data){
+			socket.emit("player-request", data.article);
+			$('#destination').text(data.destination);
+			$("#main.play").removeClass('spin').addClass('active');
+		});
+
+		// game start
+		socket.on("violation", function(v){
+			// remove spinner
+			alert("Illegaler Link: "+v);
+		});
+
+		
+		// game start
+		socket.on("start", function(){
+			// remove spinner
+			$("#main.play").removeClass('spin').addClass('active');
 		});
 		
-		io.on('bonus', function(data){
-			$('#player'+data.player+' .history').prepend('<p class="bonus">'+data.txt+'</p>');
-		});
-
-		io.on('malus', function(data){
-			$('#player'+data.player+' .history').prepend('<p class="malus">'+data.txt+'</p>');
-		});
-
-		io.on('winner', function(data){
-			countdown_stop('END');
-			$('#splash').html('Player '+data.winner+' <em>'+data.winner_name+'</em> WIN<br /><small>Player 1: '+data.score1+' Punkte</small><br /><small>Player 2: '+data.score2+' Punkte</small>');
-			$('body').addClass('splash');
+		// player finish
+		socket.on("finish", function(){
+			$("#main.play").removeClass('active').addClass('finish');
 		});
 		
-		io.on('player-done', function(data){
-			$('#player'+data.player).addClass('done');
-		});
-		
-		
-		io.on('timer-start', function(t){
-			countdown_start(t, '#state');
-		});
-
-	}
-
-	/* play */
-		
-	if ($('body.play').length > 0){
-		
-		/* say hello to the server */
-		io.emit('ready');
-		/* set player name */
-		$('#enter-name').submit(function(){
-			io.emit('set-name', $('#name').val());
-			$('#name').val('');
-		});
-
-		io.on('show-login', function(data) {
-			$('#main').attr('class','show-login');
-			$('#name').focus();
-		});
-		
-		io.on('show-play', function(data) {
-			$('#main').attr('class','show-play');
-		});
-
-		io.on('show-wait', function(data) {
-			$('#main').attr('class','show-wait');
-			if (data !== null && ('to' in data)) {
-				$('#preview').html("Von <em>"+data.from.lemma+'</em><br />Bis <em>'+data.to.lemma+'</em>');
-				$('#destination').text(data.to.lemma);
-				$('#article-headline').text(data.from.lemma);
-				io.emit('article', data.from);
+		// game end
+		socket.on("end", function(result){
+			var playerid = parseInt($('#main').attr("data-playerid"),10);
+			if (result.players[playerid].winner) {
+				$("#finish").html(result.players[playerid].points+" Punkte<br />Du hast gewonnen!");
 			} else {
-				$('#preview').html('');
+				$("#finish").html(result.players[playerid].points+" Punkte<br />Danke fürs mitspielen!");
 			}
+			$("#main.play").removeClass('active').addClass('finish');
 		});
 
-		io.on('set-destination', function(data){
-			$('#destination').text(data.lemma);
-		});
-		
-		io.on('load-article', function(data){
-			$('#article-headline').text(data.lemma);
-			io.emit('article', data);
-		});
-
-		io.on('article', function(data){
-			var $article = $('<div></div>').html(data.html);
-			$('#article-content').html($article);
-			$('#article').scrollTop(0);
-			$('a', $article).each(function(idx,a){
+		// retrieve article
+		socket.on("player-response", function(article){
+			var $article = $('<div></div>').html(article.html);
+			$('a', $article).each(function(idx, a){
 				var $a = $(a);
-				var slug = $a.attr('href').replace(/#.*$/,'').split(/\//).pop();
-				if (slug !== '') {
+				if (/^\/wiki\/([^#]+)(#.*)?$/.test($a.attr("href"))) {
 					$a.click(function(evt){
 						evt.preventDefault();
 						$('#article-headline').text($a.attr('title'));
-						io.emit('article', {
-							slug: decodeURIComponent(slug),
-							lemma: $a.attr('title')
-						});
+						socket.emit('player-request', $a.attr('title'));
 					});
-				}
+				} else {
+					$a.click(function(evt){
+						alert("Das ist keine Wikipedia-Link");
+						evt.preventDefault();
+						return false;
+					});
+				};
 			});
+			$('#article-headline').text(article.title);
+			$('#article-content').html($article);
+			$('#article').scrollTop(0);
 		});
 		
-		io.on('timer-start', function(t){
-			countdown_start(t, '#clock');
+		// set pair
+		socket.on("player-pair", function(pair){
+			// load first destination
+			socket.emit("player-request", pair[0]);
 		});
 		
-		io.on('winner', function(data){
-			countdown_stop('END');
+		// set pair
+		socket.on("gamedata", function(data){
+			$('#timer').text(data.time);
+			//FIXME: adjust timer?
+			if (data.to !== null) $('#destination').text(data.to);
+		});
+
+	};
+		
+	// code for admin interface
+	if ($("#main.admin").length === 1) {
+		
+		// tell server we are admin
+		socket.on('connect', function(){
+			socket.emit('admin', true);
+		});
+
+		// main control buttons
+		$('#round-new').click(function(evt){ socket.emit('round-new', true); });
+		$('#round-start').click(function(evt){ socket.emit('round-start', true); });
+		$('#round-pause').click(function(evt){ socket.emit('round-pause', true); });
+		$('#round-resume').click(function(evt){ socket.emit('round-resume', true); });
+		$('#reset').click(function(evt){ socket.emit('admin-reset', true); });
+		$('#dings').click(function(evt){ socket.emit('dings', true); });
+
+		// receive gamedata
+		socket.on('gamedata', function(data){
+//			$('#log').prepend('<p>received gamedata: <pre>'+JSON.stringify(data)+'</pre></p>');
+			// playernames
+			if (data.player1 !== null) $('.name', '#p0').text(data.player1);
+			if (data.player2 !== null) $('.name', '#p1').text(data.player2);
+			// set time
+			$('#timer').text(data.time);
+			// destinations
+			if (data.from !== null) $('#from').text(data.from);
+			if (data.to !== null) $('#to').text(data.to);
+			// status
+			$('#status').text((data.ready)?"ready":"waiting");
+		});
+		
+		// show log entry
+		socket.on('log', function(data){
+			$('#log').prepend('<p>'+data+'</p>');
 		});
 		
 	};
 
-	/* splash */
-	
-	io.on('splash', function(text) {
-		$('#splash').text(text);
-		$('body').addClass('splash');
-	});
-	
-	$('#splash').click(function(){
-		$('body').removeClass('splash');
-	});
-	
-	/* reload */
-	
-	io.on('reload', function(){
+	// code for screen
+	if ($("#main.index").length === 1) {
+
+		// tell server we are a display
+		socket.on('connect', function(){
+			socket.emit('display', true);
+		});
+		
 		setTimeout(function(){
-			(window||document).location.reload(true);
-		},3000);
-	});
+			$("#main").addClass("ready");
+		},10000);
+		
+		// ready handler
+		socket.on('ready', function(){
+			$('#status').text("Ready!");
+			signal.special.play();
+			setTimeout(function(){
+				$('#status').text("").fadeOut();
+			},3000);
+		});
+		
+		// pause-handler
+		socket.on('pause', function(){
+			$('#status').text("Pause").fadeIn();
+		});
+		socket.on('resume', function(){
+			$('#status').text("").fadeOut();
+		});
+		
+		socket.on('player-stat', function(data){
+			var $stat = $('<li>'+data.article+'</li>');
+			signal.article.play();
+			data.bonus.forEach(function(b){
+				if (b[0] > 0) {
+					$stat.append(' <span class="badge bonus">+'+b[0]+' '+b[1]+'</span>');
+					signal.bonus.play();
+				}
+				if (b[0] < 0) {
+					signal.malus.play();
+					$stat.append(' <span class="badge malus">'+b[0]+' '+b[1]+'</span>');
+				}
+			});
+			$('ul', '#p'+data.player).append($stat);
+		});
+		
+		// player finish
+		socket.on("player-finish", function(data){
+			signal.special.play();
+			$('ul', '#p'+data.player).append('<li><span class="badge special"><i class="fa fa-check"></i> Yay!</span></li>');
+		});
+		
+		// game end
+		socket.on("end", function(result){
+			signal.end.play();
+			
+			result.players.forEach(function(p, idx){
+				$('ul', '#p'+idx).append('<li><span class="badge points">'+p.points+' Punkte</span></li>');
+			});
+			$('#status').text($('.name','#p'+result.winner).text()+" hat gewonnen!").fadeIn();
 
-	/* countdown */
+		});
+		
+		socket.on('gamedata', function(data){
+
+			// names
+			if (data.hasOwnProperty("player1") && data.player1) $('.name','#p0').text(data.player1);
+			if (data.hasOwnProperty("player2") && data.player2) $('.name','#p1').text(data.player2);
+
+			// route
+			if (data.hasOwnProperty("from") && data.from) $('#from').text(data.from);
+			if (data.hasOwnProperty("to") && data.to) $('#to').text(data.to);
+
+			// ready? FIXME
+			// if (data.hasOwnProperty("ready") && data.ready) $('#to').text(data.from);
+
+		});
+		
+		// dings
+		socket.on("dings", function(){
+			signal.special.play();
+			$('#dings').css("z-index","1000");
+			setTimeout(function(){
+				$('#dings').css("z-index","-1");
+			},30000);
+		});
+
+		// scroll down in scores
+		setInterval(function(){
+			$(".col ul", "#scores").scrollTop(10000);
+		},100);
+		
+		// sound
+		var background = new $.mediaAudio(['/assets/sound/background.ogg', '/assets/sound/background.mp3']);
+		background.preload('auto');
+		background.loop(true);
+		background.volume(0.5);
+
+		var signal = {};
+		["start","end","malus","bonus","article","special"].forEach(function(x){
+			signal[x] = new $.mediaAudio(['/assets/sound/'+x+'.ogg', '/assets/sound/'+x+'.mp3']);
+			signal[x].preload('auto');
+			signal[x].volume(1);
+		});
+		
+	};
 	
-	io.on('round-end', function(){
-		if (countdown_timer !== null) {
-			countdown_stop("END");
-		} 
+	// reset
+	socket.on('reset', function(data){
+		$('#main').html('<h1 id="reset">Reset</h1>');
+		setTimeout(function(){
+			location.reload();
+		}, 3000);
 	});
 	
-	var countdown_timer = null;
-	var countdown_element = null;
-	var countdown_start = function(t, e) {
-		countdown_element = $(e);
-		var endtime = new Date();
-		endtime.setTime(parseInt(t,10));
-		countdown_timer = setInterval(function(){
-			countdown_element.text(Math.round((endtime.getTime()-(new Date()).getTime())/1000).toString());
-		},333);
-	}
-	var countdown_stop = function(txt) {
-		clearInterval(countdown_timer);
-		countdown_timer = null;
-		countdown_element.text(txt);
-	}
-
+	// timer code (because we use this everywhere)
+	var timer = null;
+	socket.on('timer-reset', function(data){
+		if (timer) clearInterval(timer);
+		if (!data) var data = 300;
+		$('#timer').text(data);
+		if (background) background.stop();
+	});
+	socket.on('timer-end', function(data){
+		if (timer) clearInterval(timer);
+		if (!data) var data = 300;
+		$('#timer').text(data);
+		if (background) background.stop();
+	});
+	socket.on('timer-pause', function(data){
+		if (timer) clearInterval(timer);
+		if (data) $('#timer').text(data);
+		if (background) background.pause();
+	});
+	socket.on('timer-start', function(data){
+		if (timer) clearInterval(timer);
+		if (!data) var data = 300;
+		$('#timer').text(data.toString());
+		var end = Date.now()+(data*1000)
+		timer = setInterval(function(){
+			$('#timer').text((((end-Date.now())/1000)|0).toString());
+		},100);
+		if (signal) signal.start.play();
+		if (background) background.play();
+	});
+	
+	
 });
-
-

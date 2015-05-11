@@ -1,332 +1,502 @@
 body {
-	background-color: #000;
-	color: #fff;
-	font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
+	font-family: "Source Sans Pro";
+}
+
+#main {
+	display: block;
+	position: fixed;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
 	margin: 0px;
 	padding: 0px;
 }
 
-	#main {
-		
-		display: block;
-		position: fixed;
-		left: 0px;
-		top: 0px;
-		right: 0px;
-		bottom: 0px;
-		margin: 0px;
-		padding: 0px;
-		background-color: #000;
-		box-shadow: 0px 0px 200px rgba(255,255,255,0.2) inset;
-		z-index: 1;
-		
-	}
-	
-	.play #login,
-	.play #wait,
-	.play #play {
-		display: none;
-	}
+h1#reset {
+	position: absolute;
+	top: 50%;
+	left: 20%;
+	right: 20%;
+	height: 160px;
+	margin: 0px;
+	padding: 0px;
+	margin-top: -80px;
+	text-align: center;
+	line-height: 160px;
+	font-family: "Bangers";
+	font-size: 5em;
+}
 
-	.play .show-login #login,
-	.play .show-wait #wait,
-	.play .show-play #play {
-		display: block;
-		position: fixed;
-		left: 0px;
-		right: 0px;
-		top: 0px;
-		bottom: 0px;
-	}
+.select {
+	background: #222 url(../images/background.png) center center repeat;
+	color: #fff;
+	font-size: 2em;
+	font-family: "Source Sans Pro";
+}
 
-		.play #wait {
+	.select #select {
 		
-			padding: 200px 0px;
-			text-align: center;
-			font-size: 60px;
-			line-height: 80px;
-		
-		}
-
-		.play #preview {
-	
-			text-align: center;
-			font-size: 40px;
-			line-height: 50px;
-	
-		}
-		
-		.play #login {
-			
-			padding: 200px 0px;
-			text-align: center;
-			color: #000;
-			font-size: 60px;
-			
-		}
-	
-		.play #login .add-on {
-			
-			height: 80px;
-			line-height: 80px;
-			font-size: 60px;
-			padding-left: 20px;
-			padding-right: 20px;
-			color: #999;
-			
-		}
-
-		.play #login input {
-			
-			height: 80px;
-			line-height: 80px;
-			font-size: 60px;
-			min-width: 400px;
-			padding-left: 20px;
-			padding-right: 20px;
-			
-		}
-
-		.play #play #destination {
-			
-			display: block;
-			position: absolute;
-			left: 0px;
-			top: 0px;
-			right: 300px;
-			height: 100px;
-			line-height: 100px;
-			text-align: left;
-			padding-left: 20px;
-			font-size: 60px;
-			
-		}
-		
-		.play #play #clock {
-			
-			display: block;
-			position: absolute;
-			right: 0px;
-			top: 0px;
-			width: 300px;
-			height: 100px;
-			line-height: 100px;
-			text-align: center;
-			font-size: 60px;
-			
-		}
-
-		.play #play #article {
-			
-			display: block;
-			position: absolute;
-			right: 0px;
-			left: 0px;
-			top: 101px;
-			bottom: 0px;
-			border-top: 1px solid #333;
-			padding: 50px;
-			overflow: auto;
-			background-color: #fff;
-			color: #333;
-			
-		}
-		
-			.play #play #article .float-right {
-				
-				float: right;
-				margin-left: 20px;
-				
-			}
-			
-			.play #play #article .editsection {
-				display: none;
-			}
-	
-	.stats #player1 {
-		
-		display: block;
 		position: absolute;
-		left: 0px;
-		top: 0px;
-		width: 50%;
-		bottom: 165px;
-		z-index: 1;
-		
-	}
-	
-	.stats #player2 {
-		
-		display: block;
-		position: absolute;
-		right: 0px;
-		top: 0px;
-		width: 50%;
-		bottom: 165px;
-		z-index: 2;
-		
-	}
-	
-		.stats .name {
-		
-			display: block;
-			position: relative;
-			color: #fff;
-			font-size: 60px;
-			width: 100%;
-			height: 100px;
-			line-height: 100px;
-			text-align: center;
-		
-		}
-		
-		.stats .done .name {
-			
-			color: #6f6;
-			
-		}
-	
-		.stats .article {
-		
-			display: block;
-			position: relative;
-			color: #fff;
-			font-size: 40px;
-			width: 100%;
-			height: 60px;
-			line-height: 60px;
-			text-align: center;
-			background-color: rgba(255,255,255,0.05);
-			overflow: hidden;
-		
-		}
-	
-		.stats .history {
-		
-			display: block;
-			position: relative;
-			color: #ccc;
-			font-size: 30px;
-			width: 100%;
-			line-height: 40px;
-			text-align: center;
-			overflow: hidden;
-		
-		}
-		
-			.stats .history .bonus {
-			
-				color: #6f6;
-			
-			}
-
-			.stats .history .malus {
-			
-				color: #f66;
-			
-			}
-
-	.stats #game {
-		
-		display: block;
-		position: absolute;
-		left: 0px;
-		right: 0px;
-		bottom: 0px;
-		height: 161px;
-		z-index: 3;
-		
-	}
-	
-		.stats #state {
-	
-			display: block;
-			position: absolute;
-			left: 35%;
-			right: 35%;
-			height: 160px;
-			border: 1px solid #333;
-			border-bottom: 0px;
-			bottom: 0px;
-			text-align: center;
-			line-height: 160px;
-			font-size: 80px;
-			border-top-left-radius: 20px;
-			border-top-right-radius: 20px;
-	
-		}
-		
-		.stats #from {
-	
-			display: block;
-			position: absolute;
-			width: 35%;
-			left: 0px;
-			bottom: 0px;
-			padding: 20px 0px;
-			max-height: 100px;
-			height: 100px;
-			text-align: center;
-			font-size: 40px;
-			line-height: 40px;
-			border-top: 1px solid #333;
-			overflow: hidden;
-			background-color: rgba(0,0,0,0.8);
-	
-		}
-		
-		.stats #to {
-	
-			display: block;
-			position: absolute;
-			width: 35%;
-			right: 0px;
-			bottom: 0px;
-			padding: 20px 0px;
-			max-height: 100px;
-			height: 100px;
-			text-align: center;
-			font-size: 40px;
-			line-height: 40px;
-			border-top: 1px solid #333;
-			overflow: hidden;
-			background-color: rgba(0,0,0,0.8);
-	
-		}
-		
-	#splash {
-		display: none;
-	}
-	
-	.splash #splash {
-		
-		display: block;
-		position: fixed;
-		left: 0px;
-		top: 0px;
-		right: 0px;
-		bottom: 0px;
-		margin: 0px;
-		padding: 100px;
-		background-color: rgba(0,0,0,0.9);
-		color: #fff;
-		font-size: 100px;
-		line-height: 120px;
+		top: 50%;
+		left: 20%;
+		right: 20%;
+		height: 100px;
 		text-align: center;
-		z-index: 2;
+		
+	}
+	
+	.select #select a {
+	
+		font-size: 2em;
+		margin-top: -1em;
+		padding-left: 1em;
+		padding-right: 1em;
+		font-family: "Bangers";
+		letter-spacing: .1em;
+		
+	}
+	
+	.select #select a+a {
+		
+		margin-left: 1em;
 		
 	}
 
-		.splash #splash em {
+.play {
+	background: #222 url(../images/background.png) center center repeat;
+	color: #fff;
+	font-size: 2em;
+	font-family: "Source Sans Pro";
+}
+
+	.play #name { display: none; }
+	.play #wait { display: none; }
+	.play #play { display: none; }
+	.play #spinner { display: none; }
+	.play #finish { display: none; }
+
+	.play.name #name { display: block; }
+	.play.wait #wait { display: block; }
+	.play.active #play { display: block; }
+	.play.spin #spinner { display: block; }
+	.play.finish #finish { display: block; }
+
+	.play #finish {
+		
+		position: absolute;
+		top: 50%;
+		left: 20%;
+		right: 20%;
+		height: 160px;
+		margin-top: -80px;
+		text-align: center;
+		line-height: 80px;
+		font-family: "Bangers";
+		font-size: 2.7em;
+		
+	}
+
 	
-			color: #6f6;
-			font-style: normal;
+	.play #name {
+		
+		position: absolute;
+		top: 50%;
+		left: 20%;
+		right: 20%;
+		height: 100px;
+		
+	}
 	
+		.play #name #playername {
+		
+			font-size: 3em;
+			height: 1.4em;
+			margin-top: -.7em;
+			
+		}
+				
+	.play.spin #spinner {
+		
+		position: fixed;
+		top: 0px;
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+		background-color: rgba(0,0,0,0.5);
+		
+	}
+	
+		.play #spinner i {
+			
+			display: block;
+			position: relative;
+			top: 50%;
+			width: 1em;
+			height: 1em;
+			margin: -.5em auto;
+			font-size: 7em;
+			
+		}
+		
+	.play #play {
+		position: fixed;
+		left: 0px;
+		top: 0px;
+		right: 0px;
+		bottom: 0px;
+	}
+
+		.play #timer {
+			position: fixed;
+			top: 0px;
+			right: 40px;
+			height: 40px;
+			width: 200px;
+			text-align: right;
+			color: #fc0;
+		}
+
+		.play #buttons {
+			position: fixed;
+			top: 0px;
+			right: 0px;
+			height: 40px;
+			width: 40px;
+			text-align: center;
+		}
+
+		.play #destination {
+			position: fixed;
+			top: 0px;
+			left: 0px;
+			right: 200px;
+			height: 40px;
+			overflow: hidden;
+		}
+
+		.play #article {
+			position: fixed;
+			top: 40px;
+			left: 0px;
+			right: 0px;
+			bottom: 0px;
+			border-top: 1px solid #333;
+			overflow: hidden;
+			overflow-y: auto;
+			padding: 20px;
+			background-color: rgba(255,255,255,0.95);
+			color: #000;
+		}
+
+.admin {
+	background: #222 url(../images/background.png) center center repeat;
+	color: #fff;
+	font-size: 2em;
+	font-family: "Source Sans Pro";
+}
+
+	.admin .row {
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+
+	.admin .route span {
+
+		font-size: 1.2em;
+
+	}
+	
+	.admin .route i {
+
+		color: #fc0;
+		margin: 0px 20px;
+
+	}
+	
+	.admin .logs p {
+		
+		font-size: .7em;
+		font-family: monospace;
+		
+	}
+	
+	.admin #timer {
+		
+		text-align: center;
+		font-size: 2em;
+		
+	}
+	
+	.admin #status {
+		
+		text-align: center;
+		font-size: 1em;
+		margin-top: -30px;
+		
+	}
+
+.index {
+	background: #222 url(../images/background.png) center center repeat;
+}
+
+	.index #logo {
+		width: 100%;
+		height: 100%;
+		background: url(../images/wikigame.png) center center no-repeat;
+		
+	}
+	
+	.ready.index #logo {
+		opacity: .3;
+	}
+	
+	.index #status {
+		display: block;
+		position: fixed;
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+		padding: 15px 20px;
+		font-size: 3em;
+		text-align: center;
+		color: #f9d;
+		background: rgba(0,0,0,0.8);
+		text-shadow: 0px 0px 20px #000, 0px 0px 20px #000, 0px 0px 20px #000;
+		text-transform: uppercase;
+		font-weight: 400;
+		font-family: "Bangers";
+		letter-spacing: .1em;
+		z-index: 1000;
+
+	}
+	
+	.index #scores {
+		
+		display: none;
+		position: fixed;
+		left: 0px;
+		right: 0px;
+		top: 0px;
+		bottom: 0px;
+		
+	}
+	
+		.index.ready #scores {
+			display: block;
+		}
+	
+		.index #scores .col {
+			
+			display: block;
+			position: fixed;
+			left: 0px;
+			right: 50%;
+			top: 0px;
+			bottom: 0px;
+			
+		}
+
+		.index #scores .col+.col {
+		
+			right: 0px;
+			left: 50%;
+			border-left: 2px dashed #333;
+		
+		}
+		
+			.index #scores .col h1 {
+				
+				text-align: center;
+				color: #fff;
+				font-family: "Bangers";
+				letter-spacing: .1em;
+				text-shadow: 0px 0px 25px #f00;
+				
+			}
+	
+				.index #scores .col h1 .circle {
+					
+					display: inline-block;
+					position: relative;
+					width: 1.2em;
+					height: 1.2em;
+					font-family: sans-serif;
+					background-color: #fff;
+					text-align: center;
+					font-size: .65em;
+					padding: 0px .0em .15em .2em;
+					top: -.15em;
+					border-radius: 1em;
+					border: .15em solid #fff;
+					color: #333;
+					font-weight: bold;
+					opacity: .75;
+					text-shadow: none;
+					box-shadow: 0px 0px 25px #f00;
+					
+				}
+				
+			.index #scores .col ul {
+				
+				display: block;
+				position: absolute;
+				bottom: 80px;
+				top: 80px;
+				left: 0px;
+				right: 0px;
+				list-style: none;
+				margin: 0px;
+				padding: 20px;
+				font-size: 2em;
+				font-family: "Bangers";
+				letter-spacing: .1em;
+				overflow-y: auto;
+				
+			}
+
+				.index #scores .col ul li {
+
+					display: block;
+					list-style: none;
+					color: #fff;
+					text-align: right;
+					padding: .4em 0;
+					line-height: 1em;
+
+				}
+				
+					.index #scores .col+.col ul li {
+						text-align: left;
+					}
+					
+					.index #scores .col ul li .badge {
+						
+						font-size: .8em;
+						position: relative;
+						top: -.05em;
+						padding: 3px 10px 0px;
+						white-space: nowrap;
+						font-family: "Source Sans Pro";
+						letter-spacing: 0px;
+						text-transform: uppercase;
+						
+					}
+					
+						.index #scores .col ul li .badge.bonus {
+							
+							background-color: #6c3;
+							color: #000;
+							
+						}
+	
+						.index #scores .col ul li .badge.malus {
+							
+							background-color: #c63;
+							color: #000;
+							
+						}
+	
+						.index #scores .col ul li .badge.special {
+							
+							background-color: #47f;
+							color: #000;
+							
+						}
+						
+						.index #scores .col ul li .badge.points {
+							
+							background-color: #47f;
+							color: #000;
+							font-size: 2em;
+							
+						}
+	
+		.index #scores #clock {
+	
+			display: block;
+			width: 4em;
+			text-align: center;
+			position: relative;
+			margin: 0px auto;
+			padding: 0px 20px 0px;
+			color: #fff;
+			font-size: 4em;
+			font-family: "Bangers";
+			letter-spacing: .1em;
+			background-color: rgba(0,0,0,0.4);
+			border-bottom-left-radius: 30px 20px;
+			border-bottom-right-radius: 30px 20px;
+			box-shadow: 0px 0px 40px -10px rgba(255,255,255,0.1);
+			z-index: 999;
+			
 		}
 			
-		.splash #splash small {
-			
-			font-size: 80px;
+			.index #scores #clock i {
+				
+				color: #f09;
+				
+			}
+	
+		.index #scores #goal {
+
+			display: block;
+			position: absolute;
+			text-align: center;
+			width: 100%;
+			bottom: 0px;
+			padding: 15px 20px;
+			color: #fff;
+			font-size: 3em;
+			font-family: "Bangers";
+			font-weight: normal;
+			letter-spacing: .1em;
+			z-index: 900;
 			color: #999;
+			max-height: 90px;
+			line-height: 1em;
+			overflow: hidden;
+
+		}
+		
+			.index #scores #goal i {
+				
+				color: #f09;
+				
+			}
+	
+	.index #dings {
+		
+		display: block;
+		position: fixed;
+		left: 0px;
+		top: 0px;
+		right: 0px;
+		bottom: 0px;
+		background: #222 url(../images/background.png) center center repeat;
+		color: #fff;
+		padding: 50px 100px;
+		z-index: -1;
+		font-size: 1.8em;
+		
+	}
+	
+		.index #dings h1 {
+			
+			font-family: "Bangers";
+			font-size: 3em;
+			text-align: center;
+			color: #0f9;
 			
 		}
+
+		.index #dings h2 {
+			
+			font-family: "Bangers";
+			font-size: 2em;
+			color: #f09;
+			
+		}
+
+
+	

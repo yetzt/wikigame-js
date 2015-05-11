@@ -1,0 +1,29 @@
+{{> header}}
+<div id="main" class="play spin" data-playerid="{{id}}">
+	<div id="name">
+		<form action="javascript:;" method="post" id="playername-form">
+			<input class="input input-lg form-control" type="text" name="playername" id="playername" size="20" placeholder="Name" />
+		</form>
+	</div>
+	<div id="wait">
+		Warte auf Start. <div id="preview"></div>
+	</div>
+	<div id="finish">
+		Du hast die Wikipedia erfolgreich durchgelesen.
+	</div>
+	<div id="play">
+		<div id="destination"></div>
+		<div id="timer"></div>
+		<div id="buttons">
+			<button class="btn btn-danger btn-sm" id="refresh"><i class="fa fa-refresh"></i></button>
+		</div>
+		<div id="article">
+			<h1 id="article-headline"></h1>
+			<div id="article-content"></div>
+		</div>
+	</div>
+	<div id="spinner">
+		<i class="fa fa-circle-o-notch fa-spin"></i>
+	</div>
+</div>
+{{> footer}}

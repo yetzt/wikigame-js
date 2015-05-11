@@ -1,0 +1,60 @@
+{{> header}}
+<div id="main" class="admin">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-2">
+				<button class="btn btn-success btn-lg btn-block" id="round-new">Neue Runde</button>
+			</div>
+			<div class="col-md-2">
+				<button class="btn btn-success btn-lg btn-block" id="round-start">Start</button>
+			</div>
+			<div class="col-md-2">
+				<button class="btn btn-warning btn-lg btn-block" id="round-pause">Pause</button>
+			</div>
+			<div class="col-md-2">
+				<button class="btn btn-warning btn-lg btn-block" id="round-resume">Weiter</button>
+			</div>
+			<div class="col-md-2">
+				<button class="btn btn-danger btn-lg btn-block" id="reset">Reset</button>
+			</div>
+			<div class="col-md-2">
+				<button class="btn btn-primary btn-lg btn-block" id="dings">Dings</button>
+			</div>
+		</div>
+		<div class="row route">
+			<div class="col-md-12">
+				<p class="text-center">
+					<span id="from"><em>None</em></span>
+					<i class="fa fa-hand-o-right"></i>
+					<span id="to"><em>None</em></span>
+				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5 text-right" id="p0">
+				<p>
+					Player 1: <span class="name"><em>None</em></span>
+				</p>
+				<p>
+					<button class="btn btn-success btn-lg adminbonus" data-player="1"><strong>+10</strong> Admin-Bonus</button>
+				</p>
+			</div>
+			<div class="col-md-2">
+				<p id="timer">300</p>
+				<p id="status">wait</p>
+			</div>
+			<div class="col-md-5 text-left" id="p1">
+				<p>
+					Player 2: <span class="name"><em>None</em></span><br />
+				</p>
+				<p>
+					<button class="btn btn-success btn-lg adminbonus" data-player="2"><strong>+10</strong> Admin-Bonus</button>
+				</p>
+			</div>
+		</div>
+		<div class="row logs">
+			<div class="col-md-12" id="log"></div>
+		</div>
+	</div>
+</div>
+{{> footer}}
