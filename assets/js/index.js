@@ -193,7 +193,6 @@ $(document).ready(function(){
 		countdown_element = $(e);
 		var endtime = new Date();
 		endtime.setTime(parseInt(t,10));
-		console.log(endtime.getTime());
 		countdown_timer = setInterval(function(){
 			countdown_element.text(Math.round((endtime.getTime()-(new Date()).getTime())/1000).toString());
 		},333);

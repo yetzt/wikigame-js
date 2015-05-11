@@ -465,7 +465,7 @@ var scrape = function(slug, callback) {
 	scraper.scrape(opts, function(err,$){
 		if (err) {
 			console.error('ERR'.red.inverse.bold, 'scrape'.red, err);
-			callbacl(err);
+			callback(err);
 		} else {
 			callback(null, $(config.selector).html().toString());
 		}
