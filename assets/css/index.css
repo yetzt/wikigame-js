@@ -118,7 +118,8 @@ h1#reset {
 				
 	.play.spin #spinner {
 		
-		position: fixed;
+		display: block;
+		position: absolute;
 		top: 0px;
 		left: 0px;
 		right: 0px;
@@ -467,7 +468,7 @@ h1#reset {
 	
 	.index #dings {
 		
-		display: block;
+		display: none;
 		position: fixed;
 		left: 0px;
 		top: 0px;

@@ -218,9 +218,9 @@ $(document).ready(function(){
 		// dings
 		socket.on("dings", function(){
 			signal.special.play();
-			$('#dings').css("z-index","1000");
+			$('#dings').css("z-index","1000").show();
 			setTimeout(function(){
-				$('#dings').css("z-index","-1");
+				$('#dings').css("z-index","-1").hide();
 			},30000);
 		});
 
@@ -283,5 +283,6 @@ $(document).ready(function(){
 		if (background) background.play();
 	});
 	
-	
+	// fix spinner on chrome
+	$("i", "#spinner").css({top: Math.round($(window).innerHeight()/2)});
 });
