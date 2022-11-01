@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "wikigame",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "wikigame v2",
   "main": "wikigame.js",
   "repository": {
